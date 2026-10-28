@@ -370,6 +370,13 @@ body {
     flex-wrap: wrap;
 }
 
+.formulario__preview {
+    max-width: 200px;
+    border-radius: 6px;
+    border: 1px solid #e2e5ec;
+    margin-top: 0.4rem;
+}
+
 .formulario__acciones {
     display: flex;
     gap: 0.6rem;

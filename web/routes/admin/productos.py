@@ -6,22 +6,31 @@ from web.services.productos import (
     crear_producto,
     actualizar_producto,
     eliminar_producto,
+    archivo_a_data_uri,
 )
 from web.services.categorias import obtener_categorias
 
 productos_bp = Blueprint('productos', __name__)
 
 
-def _datos_del_formulario() -> dict:
-    """Toma los campos del formulario HTML y los normaliza para la API."""
+def _datos_del_formulario(producto_actual: dict = None) -> dict:
+    """
+    Toma los campos del formulario HTML y los normaliza para la API.
+    La imagen llega como archivo y se convierte a data URI base64; si no se
+    sube una nueva en la edicion, se conserva la actual.
+    """
     formulario = request.form
+    imagen     = archivo_a_data_uri(request.files.get('imagen'))
+
+    if imagen is None and producto_actual:
+        imagen = producto_actual.get('imagen') or ''
 
     return {
         'nombre':       formulario.get('nombre', '').strip(),
         'descripcion':  formulario.get('descripcion', '').strip(),
         'precio':       formulario.get('precio', '').strip() or '0',
         'stock':        formulario.get('stock', '').strip() or '0',
-        'imagen_url':   formulario.get('imagen_url', '').strip(),
+        'imagen':       imagen or '',
         'categoria_id': formulario.get('categoria_id', '').strip() or '0',
     }
 
@@ -58,7 +67,7 @@ def editar(producto_id):
         abort(404)
 
     if request.method == 'POST':
-        resultado = actualizar_producto(producto_id, _datos_del_formulario())
+        resultado = actualizar_producto(producto_id, _datos_del_formulario(producto))
 
         if resultado['ok']:
             flash('Producto actualizado correctamente.', 'exito')

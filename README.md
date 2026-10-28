@@ -62,6 +62,10 @@ forma que los DTOs de la API), asi el sitio se puede ver y navegar sin el
 backend. Las **escrituras** del admin (crear/editar/eliminar) si necesitan la
 API: sin backend devuelven un error de conexion y no guardan nada.
 
+Las **imagenes** se suben como archivo en el form del admin; el service las
+convierte a data URI base64 (`archivo_a_data_uri`) y la API las guarda asi en
+la columna `imagen` (LONGTEXT). Los mocks usan SVGs minimos.
+
 ## Configuracion y ejecucion
 
 ```bash

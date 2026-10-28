@@ -6,7 +6,7 @@
 <section class="pagina">
     <h1>{{ 'Editar' if producto else 'Nuevo' }} producto</h1>
 
-    <form method="post" class="formulario">
+    <form method="post" class="formulario" enctype="multipart/form-data">
         <label class="formulario__campo">
             <span>Nombre *</span>
             <input type="text" name="nombre" required maxlength="100"
@@ -33,9 +33,12 @@
         </div>
 
         <label class="formulario__campo">
-            <span>URL de imagen</span>
-            <input type="url" name="imagen_url" maxlength="500"
-                   value="{{ producto.imagen_url if producto else '' }}">
+            <span>Imagen (se guarda en la base como base64)</span>
+            <input type="file" name="imagen" accept="image/*">
+            {% if producto and producto.imagen %}
+            <img class="formulario__preview" src="{{ producto.imagen }}" alt="Imagen actual">
+            <small>Imagen actual — si no elegis otra, se conserva.</small>
+            {% endif %}
         </label>
 
         <label class="formulario__campo">

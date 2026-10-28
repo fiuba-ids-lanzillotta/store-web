@@ -1,4 +1,5 @@
 """Consumo de la API (store-api) para los datos de productos."""
+import base64
 import logging
 import requests
 
@@ -8,6 +9,26 @@ from web.services.respuestas_api import mensaje_error_api
 logger = logging.getLogger(__name__)
 
 _ERROR_CONEXION = 'No se pudo conectar con el servidor. Intenta mas tarde.'
+
+
+def archivo_a_data_uri(archivo) -> str | None:
+    """Convierte un FileStorage de Flask en data URI base64, o None si esta vacio."""
+    if not archivo or not archivo.filename:
+        return None
+
+    contenido = archivo.read()
+
+    if not contenido:
+        return None
+
+    mime = archivo.mimetype or 'image/jpeg'
+
+    if mime == 'image/jpg':
+        mime = 'image/jpeg'
+
+    codificado = base64.b64encode(contenido).decode('ascii')
+
+    return f'data:{mime};base64,{codificado}'
 
 
 def _productos_de_ejemplo(categoria_id: int = None, texto: str = None) -> list[dict]:
