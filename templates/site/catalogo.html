@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "macros.html" import tarjeta_producto %}
 
 {% block title %}Catalogo · Tienda{% endblock %}
 
@@ -24,22 +25,7 @@
     {% if productos %}
     <div class="grilla">
         {% for producto in productos %}
-        <article class="tarjeta">
-            {% if producto.imagen %}
-            <img class="tarjeta__imagen" src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
-            {% else %}
-            <div class="tarjeta__imagen tarjeta__imagen--vacia">Sin imagen</div>
-            {% endif %}
-            <div class="tarjeta__cuerpo">
-                <span class="tarjeta__categoria">{{ producto.categoria.nombre }}</span>
-                <h2 class="tarjeta__titulo">{{ producto.nombre }}</h2>
-                <p class="tarjeta__precio">${{ '%.2f' | format(producto.precio) }}</p>
-                <p class="tarjeta__stock {% if producto.stock == 0 %}tarjeta__stock--agotado{% endif %}">
-                    {% if producto.stock > 0 %}Stock: {{ producto.stock }}{% else %}Sin stock{% endif %}
-                </p>
-                <a class="boton boton--chico" href="{{ url_for('web.site.productos.detalle', producto_id=producto.id) }}">Ver detalle</a>
-            </div>
-        </article>
+        {{ tarjeta_producto(producto) }}
         {% endfor %}
     </div>
     {% else %}

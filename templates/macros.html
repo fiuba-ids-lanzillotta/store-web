@@ -1,0 +1,30 @@
+{# Macros Jinja: fragmentos de markup reutilizables entre templates. #}
+
+{# Tarjeta de producto del catalogo publico. #}
+{% macro tarjeta_producto(producto) %}
+<article class="tarjeta">
+    {% if producto.imagen %}
+    <img class="tarjeta__imagen" src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
+    {% else %}
+    <div class="tarjeta__imagen tarjeta__imagen--vacia">Sin imagen</div>
+    {% endif %}
+    <div class="tarjeta__cuerpo">
+        <span class="tarjeta__categoria">{{ producto.categoria.nombre }}</span>
+        <h2 class="tarjeta__titulo">{{ producto.nombre }}</h2>
+        <p class="tarjeta__precio">${{ '%.2f' | format(producto.precio) }}</p>
+        <p class="tarjeta__stock {% if producto.stock == 0 %}tarjeta__stock--agotado{% endif %}">
+            {% if producto.stock > 0 %}Stock: {{ producto.stock }}{% else %}Sin stock{% endif %}
+        </p>
+        <a class="boton boton--chico" href="{{ url_for('web.site.productos.detalle', producto_id=producto.id) }}">Ver detalle</a>
+    </div>
+</article>
+{% endmacro %}
+
+{# Formulario inline de eliminacion con confirmacion (tablas del admin). #}
+{% macro form_eliminar(accion, nombre_item) %}
+<form method="post" action="{{ accion }}"
+      onsubmit="return confirm('Eliminar {{ nombre_item }}?');"
+      class="form-inline">
+    <button type="submit" class="boton boton--chico boton--peligro">Eliminar</button>
+</form>
+{% endmacro %}

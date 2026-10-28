@@ -15,6 +15,7 @@
                 <span class="navbar__brand-sub">Ejemplo backend + frontend</span>
             </a>
 
+            {% block navbar_menu %}
             <nav class="navbar__menu">
                 <a href="{{ url_for('web.site.home.index') }}"
                    class="navbar__link {% if request.endpoint == 'web.site.home.index' %}navbar__link--active{% endif %}">Inicio</a>
@@ -27,10 +28,12 @@
                 <a href="{{ url_for('web.admin.categorias.index') }}"
                    class="navbar__link {% if request.endpoint and request.endpoint.startswith('web.admin.categorias') %}navbar__link--active{% endif %}">Admin · Categorias</a>
             </nav>
+            {% endblock %}
         </div>
     </header>
 
     <main class="content">
+        {% block flashes %}
         {% with mensajes = get_flashed_messages(with_categories=true) %}
             {% if mensajes %}
                 <div class="flashes">
@@ -40,12 +43,15 @@
                 </div>
             {% endif %}
         {% endwith %}
+        {% endblock %}
 
         {% block content %}{% endblock %}
     </main>
 
+    {% block footer %}
     <footer class="footer">
         <p>Tienda · ejemplo didactico (Flask API + Flask web + MySQL)</p>
     </footer>
+    {% endblock %}
 </body>
 </html>
