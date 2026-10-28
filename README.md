@@ -54,6 +54,14 @@ Capas: `routes` (blueprints, presentacion/flujo) -> `services` (acceso a
 datos). Las rutas no saben de donde salen los datos: eso es lo que permite
 integrar la API en la rama `integracion-api` tocando solo `web/services/`.
 
+## Contacto
+
+`/contacto` tiene un formulario (nombre, email, mensaje) que envia un email a la
+casilla del admin (`CONTACTO_EMAIL`) via SMTP con **Flask-Mail** (mismo patron
+que `gradebook-mailer`): si no hay credenciales `MAIL_*` en el `.env`, no se
+envia nada y el mensaje solo se loguea (modo dev). El HTML del email vive en
+`templates/emails/contacto.html`.
+
 ## Datos de ejemplo
 
 Las **lecturas** (catalogo, detalle, listados del admin) devuelven

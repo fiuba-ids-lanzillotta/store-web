@@ -1,3 +1,25 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# --- Email (Flask-Mail / SMTP) para el formulario de contacto ---
+# Si MAIL_USERNAME/MAIL_PASSWORD estan vacios o MAIL_SUPPRESS_SEND=true, no se
+# envia nada: se loguea el mensaje (modo dev). Con Gmail, MAIL_PASSWORD es un
+# "App Password" (no la clave de la cuenta).
+MAIL_SERVER         = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
+MAIL_PORT           = int(os.getenv('MAIL_PORT', '587'))
+MAIL_USE_TLS        = os.getenv('MAIL_USE_TLS', 'true').lower() == 'true'
+MAIL_USE_SSL        = os.getenv('MAIL_USE_SSL', 'false').lower() == 'true'
+MAIL_USERNAME       = os.getenv('MAIL_USERNAME', '')
+MAIL_PASSWORD       = os.getenv('MAIL_PASSWORD', '')
+MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER', '') or MAIL_USERNAME
+MAIL_SUPPRESS_SEND  = os.getenv('MAIL_SUPPRESS_SEND', 'false').lower() == 'true'
+
+# Casilla que recibe los mensajes del formulario de contacto (el "admin").
+CONTACTO_EMAIL      = os.getenv('CONTACTO_EMAIL', '') or MAIL_USERNAME
+
+
 # ---------------------------------------------------------------
 # Datos de ejemplo
 # ---------------------------------------------------------------

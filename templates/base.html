@@ -20,6 +20,8 @@
                    class="navbar__link {% if request.endpoint == 'web.site.home.index' %}navbar__link--active{% endif %}">Inicio</a>
                 <a href="{{ url_for('web.site.productos.index') }}"
                    class="navbar__link {% if request.endpoint and request.endpoint.startswith('web.site.productos') %}navbar__link--active{% endif %}">Catalogo</a>
+                <a href="{{ url_for('web.site.contacto.index') }}"
+                   class="navbar__link {% if request.endpoint and request.endpoint.startswith('web.site.contacto') %}navbar__link--active{% endif %}">Contacto</a>
                 <a href="{{ url_for('web.admin.productos.index') }}"
                    class="navbar__link {% if request.endpoint and request.endpoint.startswith('web.admin.productos') %}navbar__link--active{% endif %}">Admin · Productos</a>
                 <a href="{{ url_for('web.admin.categorias.index') }}"
