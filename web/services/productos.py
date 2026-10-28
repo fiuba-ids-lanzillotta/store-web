@@ -4,9 +4,31 @@ En la rama `integracion-api` estos mismos services consumen la API
 store-api via HTTP; aca devuelven los datos de ejemplo de
 web/constants.py con la misma forma que los DTOs de la API.
 """
+import base64
+
 from web.constants import PRODUCTOS_EJEMPLO
 
 _ERROR_SIN_BACKEND = 'Sin backend: esta accion necesita la API corriendo.'
+
+
+def archivo_a_data_uri(archivo) -> str | None:
+    """Convierte un FileStorage de Flask en data URI base64, o None si esta vacio."""
+    if not archivo or not archivo.filename:
+        return None
+
+    contenido = archivo.read()
+
+    if not contenido:
+        return None
+
+    mime = archivo.mimetype or 'image/jpeg'
+
+    if mime == 'image/jpg':
+        mime = 'image/jpeg'
+
+    codificado = base64.b64encode(contenido).decode('ascii')
+
+    return f'data:{mime};base64,{codificado}'
 
 
 def obtener_productos(categoria_id: int = None, texto: str = None) -> list[dict]:

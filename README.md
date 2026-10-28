@@ -58,9 +58,9 @@ integrar la API en la rama `integracion-api` tocando solo `web/services/`.
 
 Las **lecturas** (catalogo, detalle, listados del admin) devuelven
 `PRODUCTOS_EJEMPLO` / `CATEGORIAS_EJEMPLO` de `web/constants.py`, con la misma
-forma que los DTOs de la API. Las **escrituras** del admin (crear/editar/
-eliminar) devuelven un error de "sin backend": necesitan la API de la rama
-`integracion-api`.
+forma que los DTOs de la API (las imagenes son data URIs, aca SVGs minimos).
+Las **escrituras** del admin (crear/editar/eliminar) devuelven un error de
+"sin backend": necesitan la API de la rama `integracion-api`.
 
 ## Configuracion y ejecucion
 

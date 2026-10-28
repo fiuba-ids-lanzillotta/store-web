@@ -25,8 +25,8 @@
     <div class="grilla">
         {% for producto in productos %}
         <article class="tarjeta">
-            {% if producto.imagen_url %}
-            <img class="tarjeta__imagen" src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+            {% if producto.imagen %}
+            <img class="tarjeta__imagen" src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
             {% else %}
             <div class="tarjeta__imagen tarjeta__imagen--vacia">Sin imagen</div>
             {% endif %}
