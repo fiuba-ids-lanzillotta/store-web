@@ -1,9 +1,18 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# URL base de la API del backend (store-api). Configurable por variable de entorno.
+API_BASE_URL = os.getenv('API_BASE_URL', 'http://localhost:5000/store_api')
+
+
 # ---------------------------------------------------------------
-# Datos de ejemplo
+# Datos de ejemplo (fallback sin backend)
 # ---------------------------------------------------------------
-# Datos hardcodeados que el sitio muestra en su version standalone
-# (sin backend). Tienen la misma forma que los DTOs que devuelve
-# store-api, para que la integracion no cambie los templates.
+# Cuando la API no esta disponible, los services devuelven estos
+# datos para que el sitio se pueda ver y navegar igual. Tienen la
+# misma forma que los DTOs que devuelve store-api.
 
 CATEGORIAS_EJEMPLO = [
     {'id': 1, 'nombre': 'Electronica',  'descripcion': 'Dispositivos y accesorios electronicos', 'cantidad_productos': 2},

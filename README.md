@@ -5,16 +5,15 @@
 ## Motivacion
 
 Frontend **server-rendered** (Flask + Jinja2) del ejemplo integrador *store*.
-Renderiza el catalogo publico y una zona de administracion. **No tiene base de
-datos propia** y, a proposito, **no tiene autenticacion**: la zona `/admin` es
-publica para mantener el ejemplo minimo.
+Renderiza el catalogo publico y una zona de administracion, consumiendo la API
+[`store-api`](../store-api) por HTTP. **No tiene base de datos propia** y,
+a proposito, **no tiene autenticacion**: la zona `/admin` es publica para
+mantener el ejemplo minimo.
 
-En `main` el sitio es **standalone**: los services devuelven datos de ejemplo
-hardcodeados en `web/constants.py`. La rama
-[`integracion-api`](../../tree/integracion-api) muestra el codigo que hay que
-agregar para consumir la API [`store-api`](../store-api) por HTTP.
+Esta rama (`integracion-api`) contiene el codigo de integracion con el backend;
+en `main` el sitio es standalone (los services devuelven datos de ejemplo).
 
-## Arquitectura (version standalone)
+## Arquitectura
 
 ```
   Navegador
@@ -22,11 +21,12 @@ agregar para consumir la API [`store-api`](../store-api) por HTTP.
      v
   store-web (Flask + Jinja, puerto 5001)
      |
+     |  requests.get/post/put/delete (JSON)
      v
-  Datos de ejemplo (web/constants.py)
-
-  Rama integracion-api: en lugar de datos de ejemplo, los services hacen
-  requests HTTP a store-api (Flask, puerto 5000, /store_api) -> MySQL
+  store-api (Flask, puerto 5000, /store_api)
+     |
+     v
+  MySQL 8
 ```
 
 ## Estructura del proyecto
@@ -37,11 +37,11 @@ store-web/
 ├── requirements.txt
 ├── .env.example
 ├── web/
-│   ├── constants.py              # Datos de ejemplo (standalone)
+│   ├── constants.py              # API_BASE_URL + datos de ejemplo (fallback)
 │   ├── routes/
 │   │   ├── site/                 # Zona publica: /, /productos, /productos/<id>
 │   │   └── admin/                # Zona admin: /admin/productos, /admin/categorias
-│   └── services/                 # "Capa de datos": hoy mocks, en la rama HTTP
+│   └── services/                 # Llamadas HTTP a store-api (requests)
 ├── templates/
 │   ├── base.html                 # Layout + navbar + flash messages
 │   ├── site/                     # inicio, catalogo, detalle producto
@@ -50,17 +50,17 @@ store-web/
     └── css/estilos.css
 ```
 
-Capas: `routes` (blueprints, presentacion/flujo) -> `services` (acceso a
-datos). Las rutas no saben de donde salen los datos: eso es lo que permite
-integrar la API en la rama `integracion-api` tocando solo `web/services/`.
+Capas: `routes` (blueprints, presentacion/flujo) -> `services` (llamadas HTTP a
+la API). Las rutas no tienen logica de cliente HTTP; los services encapsulan
+`requests`.
 
-## Datos de ejemplo
+## Datos de ejemplo (fallback sin backend)
 
-Las **lecturas** (catalogo, detalle, listados del admin) devuelven
-`PRODUCTOS_EJEMPLO` / `CATEGORIAS_EJEMPLO` de `web/constants.py`, con la misma
-forma que los DTOs de la API. Las **escrituras** del admin (crear/editar/
-eliminar) devuelven un error de "sin backend": necesitan la API de la rama
-`integracion-api`.
+Si la API no responde, las **lecturas** devuelven los datos hardcodeados en
+`web/constants.py` (`CATEGORIAS_EJEMPLO` / `PRODUCTOS_EJEMPLO`, con la misma
+forma que los DTOs de la API), asi el sitio se puede ver y navegar sin el
+backend. Las **escrituras** del admin (crear/editar/eliminar) si necesitan la
+API: sin backend devuelven un error de conexion y no guardan nada.
 
 ## Configuracion y ejecucion
 
@@ -74,3 +74,7 @@ pip install -r requirements.txt
 
 python app.py                   # http://localhost:5001
 ```
+
+> El catalogo y el admin consumen `store-api` (y esta, MySQL via
+> `docker compose up -d`). Si la API esta caida, las paginas se ven igual con
+> los datos de ejemplo, pero el admin no puede guardar cambios.
