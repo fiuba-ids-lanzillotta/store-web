@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{# Base de la zona admin: mismo layout pero con su propio navbar
+   (muestra como sobreescribir el block navbar_menu del base). #}
+
+{% block navbar_menu %}
+<nav class="navbar__menu">
+    <a href="{{ url_for('web.admin.productos.index') }}"
+       class="navbar__link {% if request.endpoint and request.endpoint.startswith('web.admin.productos') %}navbar__link--active{% endif %}">Productos</a>
+    <a href="{{ url_for('web.admin.categorias.index') }}"
+       class="navbar__link {% if request.endpoint and request.endpoint.startswith('web.admin.categorias') %}navbar__link--active{% endif %}">Categorias</a>
+    <a href="{{ url_for('web.site.home.index') }}" class="navbar__link">← Volver al sitio</a>
+</nav>
+{% endblock %}

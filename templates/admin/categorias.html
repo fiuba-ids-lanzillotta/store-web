@@ -1,4 +1,5 @@
-{% extends "base.html" %}
+{% extends "admin/base_admin.html" %}
+{% from "macros.html" import form_eliminar %}
 
 {% block title %}Admin · Categorias · Tienda{% endblock %}
 
@@ -29,12 +30,7 @@
                 <td>{{ categoria.cantidad_productos if categoria.cantidad_productos is defined else '-' }}</td>
                 <td class="tabla__acciones">
                     <a class="boton boton--chico" href="{{ url_for('web.admin.categorias.editar', categoria_id=categoria.id) }}">Editar</a>
-                    <form method="post"
-                          action="{{ url_for('web.admin.categorias.eliminar', categoria_id=categoria.id) }}"
-                          onsubmit="return confirm('Eliminar la categoria {{ categoria.nombre }}?');"
-                          class="form-inline">
-                        <button type="submit" class="boton boton--chico boton--peligro">Eliminar</button>
-                    </form>
+                    {{ form_eliminar(url_for('web.admin.categorias.eliminar', categoria_id=categoria.id), 'la categoria ' ~ categoria.nombre) }}
                 </td>
             </tr>
             {% endfor %}
