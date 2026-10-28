@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Error · Tienda{% endblock %}
+
+{% block content %}
+<section class="pagina">
+    <h1>500 · Error del servidor</h1>
+    <p>Ocurrio un error inesperado. Intenta mas tarde.</p>
+    <p><a class="boton" href="{{ url_for('web.site.home.index') }}">Volver al inicio</a></p>
+</section>
+{% endblock %}
