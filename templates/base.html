@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Tienda{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar__inner">
+            <a href="{{ url_for('web.site.home.index') }}" class="navbar__brand">
+                <span class="navbar__brand-name">Tienda</span>
+                <span class="navbar__brand-sub">Ejemplo backend + frontend</span>
+            </a>
+
+            <nav class="navbar__menu">
+                <a href="{{ url_for('web.site.home.index') }}"
+                   class="navbar__link {% if request.endpoint == 'web.site.home.index' %}navbar__link--active{% endif %}">Inicio</a>
+                <a href="{{ url_for('web.site.productos.index') }}"
+                   class="navbar__link {% if request.endpoint and request.endpoint.startswith('web.site.productos') %}navbar__link--active{% endif %}">Catalogo</a>
+                <a href="{{ url_for('web.admin.productos.index') }}"
+                   class="navbar__link {% if request.endpoint and request.endpoint.startswith('web.admin.productos') %}navbar__link--active{% endif %}">Admin · Productos</a>
+                <a href="{{ url_for('web.admin.categorias.index') }}"
+                   class="navbar__link {% if request.endpoint and request.endpoint.startswith('web.admin.categorias') %}navbar__link--active{% endif %}">Admin · Categorias</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="content">
+        {% with mensajes = get_flashed_messages(with_categories=true) %}
+            {% if mensajes %}
+                <div class="flashes">
+                    {% for categoria, mensaje in mensajes %}
+                        <p class="flash flash--{{ categoria }}">{{ mensaje }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>Tienda · ejemplo didactico (Flask API + Flask web + MySQL)</p>
+    </footer>
+</body>
+</html>

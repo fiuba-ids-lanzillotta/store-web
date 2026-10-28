@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}{{ 'Editar' if categoria else 'Nueva' }} categoria · Tienda{% endblock %}
+
+{% block content %}
+<section class="pagina">
+    <h1>{{ 'Editar' if categoria else 'Nueva' }} categoria</h1>
+
+    <form method="post" class="formulario">
+        <label class="formulario__campo">
+            <span>Nombre *</span>
+            <input type="text" name="nombre" required maxlength="50"
+                   value="{{ categoria.nombre if categoria else '' }}">
+        </label>
+
+        <label class="formulario__campo">
+            <span>Descripcion</span>
+            <textarea name="descripcion" rows="3" maxlength="200">{{ categoria.descripcion if categoria else '' }}</textarea>
+        </label>
+
+        <div class="formulario__acciones">
+            <button type="submit" class="boton">{{ 'Guardar cambios' if categoria else 'Crear categoria' }}</button>
+            <a class="boton boton--secundario" href="{{ url_for('web.admin.categorias.index') }}">Cancelar</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

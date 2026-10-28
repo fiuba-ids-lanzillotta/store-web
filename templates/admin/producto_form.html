@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}{{ 'Editar' if producto else 'Nuevo' }} producto · Tienda{% endblock %}
+
+{% block content %}
+<section class="pagina">
+    <h1>{{ 'Editar' if producto else 'Nuevo' }} producto</h1>
+
+    <form method="post" class="formulario">
+        <label class="formulario__campo">
+            <span>Nombre *</span>
+            <input type="text" name="nombre" required maxlength="100"
+                   value="{{ producto.nombre if producto else '' }}">
+        </label>
+
+        <label class="formulario__campo">
+            <span>Descripcion</span>
+            <textarea name="descripcion" rows="3" maxlength="500">{{ producto.descripcion if producto else '' }}</textarea>
+        </label>
+
+        <div class="formulario__fila">
+            <label class="formulario__campo">
+                <span>Precio *</span>
+                <input type="number" name="precio" required min="0" step="0.01"
+                       value="{{ producto.precio if producto else '' }}">
+            </label>
+
+            <label class="formulario__campo">
+                <span>Stock *</span>
+                <input type="number" name="stock" required min="0" step="1"
+                       value="{{ producto.stock if producto else '' }}">
+            </label>
+        </div>
+
+        <label class="formulario__campo">
+            <span>URL de imagen</span>
+            <input type="url" name="imagen_url" maxlength="500"
+                   value="{{ producto.imagen_url if producto else '' }}">
+        </label>
+
+        <label class="formulario__campo">
+            <span>Categoria *</span>
+            <select name="categoria_id" required>
+                <option value="">-- Elegi una categoria --</option>
+                {% for categoria in categorias %}
+                <option value="{{ categoria.id }}"
+                    {% if producto and producto.categoria.id == categoria.id %}selected{% endif %}>
+                    {{ categoria.nombre }}
+                </option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <div class="formulario__acciones">
+            <button type="submit" class="boton">{{ 'Guardar cambios' if producto else 'Crear producto' }}</button>
+            <a class="boton boton--secundario" href="{{ url_for('web.admin.productos.index') }}">Cancelar</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

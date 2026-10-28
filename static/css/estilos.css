@@ -1,0 +1,384 @@
+/* Estilos del ejemplo store-web: un solo archivo, a proposito. */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    background: #f6f7f9;
+    color: #1f2430;
+}
+
+/* ---------- Navbar ---------- */
+
+.navbar {
+    background: #1f2430;
+    color: #fff;
+}
+
+.navbar__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0.8rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.navbar__brand {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar__brand-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.navbar__brand-sub {
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+.navbar__menu {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.navbar__link {
+    color: #cfd4dd;
+    text-decoration: none;
+    padding: 0.4rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+.navbar__link:hover {
+    background: #2c3242;
+    color: #fff;
+}
+
+.navbar__link--active {
+    background: #3a4157;
+    color: #fff;
+}
+
+/* ---------- Layout ---------- */
+
+.content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem 1.2rem 3rem;
+    min-height: 60vh;
+}
+
+.pagina h1 {
+    margin-top: 0;
+}
+
+.pagina__cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.footer {
+    text-align: center;
+    padding: 1.2rem;
+    color: #8a90a0;
+    font-size: 0.85rem;
+}
+
+.hero {
+    text-align: center;
+    padding: 4rem 1rem;
+}
+
+.hero h1 {
+    font-size: 2.6rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ---------- Botones ---------- */
+
+.boton {
+    display: inline-block;
+    background: #3155d4;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.55rem 1.1rem;
+    font-size: 0.95rem;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.boton:hover {
+    background: #2744ad;
+}
+
+.boton--secundario {
+    background: #e2e5ec;
+    color: #1f2430;
+}
+
+.boton--secundario:hover {
+    background: #cfd4dd;
+}
+
+.boton--chico {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.85rem;
+}
+
+.boton--peligro {
+    background: #c93a3a;
+}
+
+.boton--peligro:hover {
+    background: #a82f2f;
+}
+
+/* ---------- Flash ---------- */
+
+.flashes {
+    margin-bottom: 1rem;
+}
+
+.flash {
+    padding: 0.7rem 1rem;
+    border-radius: 6px;
+    margin: 0.3rem 0;
+}
+
+.flash--exito {
+    background: #d8efd9;
+    color: #1f6b2a;
+    border: 1px solid #b3ddb6;
+}
+
+.flash--error {
+    background: #f9dcdc;
+    color: #8f2020;
+    border: 1px solid #efb7b7;
+}
+
+/* ---------- Catalogo ---------- */
+
+.filtros {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.filtros__busqueda {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid #cfd4dd;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+.filtros__select {
+    padding: 0.5rem 0.8rem;
+    border: 1px solid #cfd4dd;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background: #fff;
+}
+
+.grilla {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1.2rem;
+}
+
+.tarjeta {
+    background: #fff;
+    border: 1px solid #e2e5ec;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.tarjeta__imagen {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    background: #eceef3;
+}
+
+.tarjeta__imagen--vacia {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8a90a0;
+    font-size: 0.9rem;
+}
+
+.tarjeta__cuerpo {
+    padding: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex: 1;
+}
+
+.tarjeta__categoria {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #3155d4;
+    font-weight: 600;
+}
+
+.tarjeta__titulo {
+    font-size: 1.05rem;
+    margin: 0;
+}
+
+.tarjeta__precio {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.tarjeta__stock {
+    font-size: 0.85rem;
+    color: #4a5060;
+    margin: 0;
+}
+
+.tarjeta__stock--agotado {
+    color: #c93a3a;
+    font-weight: 600;
+}
+
+/* ---------- Detalle ---------- */
+
+.detalle__cuerpo {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.detalle__imagen {
+    width: 320px;
+    max-width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 10px;
+    background: #eceef3;
+}
+
+.detalle__imagen--vacia {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8a90a0;
+}
+
+.detalle__info {
+    max-width: 480px;
+}
+
+/* ---------- Tablas admin ---------- */
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid #e2e5ec;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tabla th,
+.tabla td {
+    padding: 0.7rem 0.9rem;
+    text-align: left;
+    border-bottom: 1px solid #eceef3;
+    font-size: 0.95rem;
+}
+
+.tabla th {
+    background: #f0f2f7;
+    font-weight: 600;
+}
+
+.tabla__acciones {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+.form-inline {
+    display: inline;
+    margin: 0;
+}
+
+/* ---------- Formularios ---------- */
+
+.formulario {
+    background: #fff;
+    border: 1px solid #e2e5ec;
+    border-radius: 10px;
+    padding: 1.4rem;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.formulario__campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.95rem;
+    flex: 1;
+}
+
+.formulario__campo span {
+    font-weight: 600;
+}
+
+.formulario__campo input,
+.formulario__campo textarea,
+.formulario__campo select {
+    padding: 0.55rem 0.8rem;
+    border: 1px solid #cfd4dd;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
+}
+
+.formulario__fila {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.formulario__acciones {
+    display: flex;
+    gap: 0.6rem;
+}
+
+/* ---------- Varios ---------- */
+
+.vacio {
+    color: #8a90a0;
+    padding: 2rem 0;
+    text-align: center;
+}

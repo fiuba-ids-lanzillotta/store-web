@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Catalogo · Tienda{% endblock %}
+
+{% block content %}
+<section class="pagina">
+    <h1>Catalogo</h1>
+
+    <form class="filtros" method="get" action="{{ url_for('web.site.productos.index') }}">
+        <input type="search" name="q" placeholder="Buscar por nombre..."
+               value="{{ texto_actual }}" class="filtros__busqueda">
+        <select name="categoria_id" class="filtros__select">
+            <option value="">Todas las categorias</option>
+            {% for categoria in categorias %}
+            <option value="{{ categoria.id }}"
+                {% if categoria_actual == categoria.id %}selected{% endif %}>
+                {{ categoria.nombre }}
+            </option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="boton">Filtrar</button>
+    </form>
+
+    {% if productos %}
+    <div class="grilla">
+        {% for producto in productos %}
+        <article class="tarjeta">
+            {% if producto.imagen_url %}
+            <img class="tarjeta__imagen" src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+            {% else %}
+            <div class="tarjeta__imagen tarjeta__imagen--vacia">Sin imagen</div>
+            {% endif %}
+            <div class="tarjeta__cuerpo">
+                <span class="tarjeta__categoria">{{ producto.categoria.nombre }}</span>
+                <h2 class="tarjeta__titulo">{{ producto.nombre }}</h2>
+                <p class="tarjeta__precio">${{ '%.2f' | format(producto.precio) }}</p>
+                <p class="tarjeta__stock {% if producto.stock == 0 %}tarjeta__stock--agotado{% endif %}">
+                    {% if producto.stock > 0 %}Stock: {{ producto.stock }}{% else %}Sin stock{% endif %}
+                </p>
+                <a class="boton boton--chico" href="{{ url_for('web.site.productos.detalle', producto_id=producto.id) }}">Ver detalle</a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="vacio">No hay productos para mostrar. Si la API esta caida, el catalogo se ve vacio.</p>
+    {% endif %}
+</section>
+{% endblock %}

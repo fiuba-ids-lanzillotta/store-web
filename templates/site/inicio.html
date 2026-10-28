@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio · Tienda{% endblock %}
+
+{% block content %}
+<section class="pagina hero">
+    <h1>Tienda</h1>
+    <p>Ejemplo integrador: frontend server-rendered (Flask + Jinja) que consume
+       una API REST (Flask) persistida en MySQL.</p>
+    <p>
+        <a class="boton" href="{{ url_for('web.site.productos.index') }}">Ver catalogo</a>
+        <a class="boton boton--secundario" href="{{ url_for('web.admin.productos.index') }}">Ir al admin</a>
+    </p>
+</section>
+{% endblock %}

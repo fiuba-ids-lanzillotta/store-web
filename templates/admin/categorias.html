@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Admin · Categorias · Tienda{% endblock %}
+
+{% block content %}
+<section class="pagina">
+    <div class="pagina__cabecera">
+        <h1>Categorias</h1>
+        <a class="boton" href="{{ url_for('web.admin.categorias.nueva') }}">+ Nueva categoria</a>
+    </div>
+
+    {% if categorias %}
+    <table class="tabla">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Productos</th>
+                <th class="tabla__acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categoria in categorias %}
+            <tr>
+                <td>{{ categoria.id }}</td>
+                <td>{{ categoria.nombre }}</td>
+                <td>{{ categoria.descripcion }}</td>
+                <td>{{ categoria.cantidad_productos if categoria.cantidad_productos is defined else '-' }}</td>
+                <td class="tabla__acciones">
+                    <a class="boton boton--chico" href="{{ url_for('web.admin.categorias.editar', categoria_id=categoria.id) }}">Editar</a>
+                    <form method="post"
+                          action="{{ url_for('web.admin.categorias.eliminar', categoria_id=categoria.id) }}"
+                          onsubmit="return confirm('Eliminar la categoria {{ categoria.nombre }}?');"
+                          class="form-inline">
+                        <button type="submit" class="boton boton--chico boton--peligro">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="vacio">No hay categorias cargadas.</p>
+    {% endif %}
+</section>
+{% endblock %}
