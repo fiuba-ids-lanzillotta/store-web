@@ -54,6 +54,14 @@ Capas: `routes` (blueprints, presentacion/flujo) -> `services` (llamadas HTTP a
 la API). Las rutas no tienen logica de cliente HTTP; los services encapsulan
 `requests`.
 
+## Contacto
+
+`/contacto` tiene un formulario (nombre, email, mensaje) que envia un email a la
+casilla del admin (`CONTACTO_EMAIL`) via SMTP con **Flask-Mail** (mismo patron
+que `gradebook-mailer`): si no hay credenciales `MAIL_*` en el `.env`, no se
+envia nada y el mensaje solo se loguea (modo dev). El HTML del email vive en
+`templates/emails/contacto.html`.
+
 ## Datos de ejemplo (fallback sin backend)
 
 Si la API no responde, las **lecturas** devuelven los datos hardcodeados en

@@ -3,6 +3,16 @@ import os
 from dotenv import load_dotenv
 from flask import Flask, render_template
 from web.routes import web_bp
+from web.constants import (
+    MAIL_SERVER,
+    MAIL_PORT,
+    MAIL_USE_TLS,
+    MAIL_USE_SSL,
+    MAIL_USERNAME,
+    MAIL_PASSWORD,
+    MAIL_DEFAULT_SENDER,
+    MAIL_SUPPRESS_SEND,
+)
 
 load_dotenv()
 
@@ -21,6 +31,18 @@ app.json.sort_keys = False
 
 # Necesaria para los mensajes flash (feedback de los formularios del admin)
 app.secret_key = os.getenv('SECRET_KEY', 'dev-secret-key')
+
+# Email (Flask-Mail): si no hay credenciales, el mailer loguea en vez de enviar
+app.config.update(
+    MAIL_SERVER=MAIL_SERVER,
+    MAIL_PORT=MAIL_PORT,
+    MAIL_USE_TLS=MAIL_USE_TLS,
+    MAIL_USE_SSL=MAIL_USE_SSL,
+    MAIL_USERNAME=MAIL_USERNAME,
+    MAIL_PASSWORD=MAIL_PASSWORD,
+    MAIL_DEFAULT_SENDER=MAIL_DEFAULT_SENDER,
+    MAIL_SUPPRESS_SEND=MAIL_SUPPRESS_SEND,
+)
 
 app.register_blueprint(web_bp)
 

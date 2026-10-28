@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Contacto · Tienda{% endblock %}
+
+{% block content %}
+<section class="pagina">
+    <h1>Contacto</h1>
+    <p>Dejanos tu mensaje y te respondemos por email.</p>
+
+    <form method="post" class="formulario">
+        <label class="formulario__campo">
+            <span>Nombre *</span>
+            <input type="text" name="nombre" required maxlength="100">
+        </label>
+
+        <label class="formulario__campo">
+            <span>Email *</span>
+            <input type="email" name="email" required maxlength="100">
+        </label>
+
+        <label class="formulario__campo">
+            <span>Mensaje *</span>
+            <textarea name="mensaje" rows="5" required maxlength="1000"></textarea>
+        </label>
+
+        <div class="formulario__acciones">
+            <button type="submit" class="boton">Enviar mensaje</button>
+        </div>
+    </form>
+</section>
+{% endblock %}
